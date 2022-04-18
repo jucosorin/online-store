@@ -1,14 +1,14 @@
 package com.jucosorin.online.store.model;
 
-import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "product_type")
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 public class ProductType extends NamedEntity {
 

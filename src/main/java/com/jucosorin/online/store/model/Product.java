@@ -1,10 +1,9 @@
 package com.jucosorin.online.store.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +14,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product")
-@Builder
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
 @Getter
 @Setter
@@ -28,7 +26,7 @@ public class Product extends NamedEntity {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "product_type_id")
+    @JoinColumn(name = "product_type_id", nullable = false)
     private ProductType productType;
 
 }

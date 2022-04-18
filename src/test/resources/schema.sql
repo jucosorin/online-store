@@ -1,17 +1,16 @@
-
 CREATE TABLE product
 (
-    id              UUID          NOT NULL,
+    id              VARCHAR(255)  NOT NULL,
     name            VARCHAR(255),
     stock           INTEGER,
     price           DECIMAL(9, 4) NOT NULL,
-    product_type_id UUID,
+    product_type_id VARCHAR(255) NOT NULL,
     CONSTRAINT pk_product PRIMARY KEY (id)
 );
 
 CREATE TABLE product_type
 (
-    id   UUID         NOT NULL,
+    id   VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     CONSTRAINT pk_product_type PRIMARY KEY (id)
 );
