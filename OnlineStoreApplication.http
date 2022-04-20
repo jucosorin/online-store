@@ -1,0 +1,56 @@
+POST http://127.0.0.1:8080/api/products
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "apple-earpods",
+  "productType": {
+    "id": "ed431a96-7ef4-48aa-98d9-a7ab98d307f2",
+    "name": "headphones"
+  },
+  "initialStock": 10,
+  "price": "152.99"
+}
+
+> {%
+client.global.set("apple-earpods-location", response.headers.valueOf("Location"));
+%}
+
+###
+
+POST http://127.0.0.1:8080/api/products
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "sony-wd200",
+  "productType": {
+    "id": "ed431a96-7ef4-48aa-98d9-a7ab98d307f2",
+    "name": "headphones"
+  },
+  "initialStock": 5,
+  "price": "167.99"
+}
+
+###
+
+GET http://127.0.0.1:8080/api/products
+Content-Type: application/json
+
+###
+
+GET {{apple-earpods-location}}
+Accept: application/json
+Content-Type: application/json
+
+> {%
+client.global.set("productId", response.body.id);
+%}
+
+###
+
+POST http://127.0.0.1:8080/api/products/{{productId}}/updatePrice?price=65.876
+Content-Type: application/json
+
+###
+

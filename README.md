@@ -1,19 +1,14 @@
-# Getting Started
+# Demo Spring Boot App
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### Running the application uses an in-memory H2 database
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.6.6/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.6.6/maven-plugin/reference/html/#build-image)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.6.6/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.6.6/reference/htmlsingle/#boot-features-developing-web-applications)
+* Product types from _data.sql_ are loaded on startup
+* The file _OnlineStoreApplication.http_ can be run from IntelliJ Idea Ultimate and will execute a number of requests against the running application
+* The DbConfiguration @Configuration enables one to connect to the in-memory H2 while the application is running; use _**jdbc:h2:tcp://localhost:9090/mem:online-store**_ url in Database tools inside IntelliJ Idea
 
-### Guides
-The following guides illustrate how to use some features concretely:
+### Integration tests use TestContainers with an PostgreSQL database
 
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+* Docker must be installed on the machine and running
+
+
 

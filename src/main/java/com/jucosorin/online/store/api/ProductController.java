@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,6 +38,7 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
+    @JsonView(ProductViews.CreateProduct.class)
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -53,7 +55,7 @@ public class ProductController {
         return ResponseEntity.created(location).build();
     }
 
-    @JsonView(ProductViews.CreateProduct.class)
+    @JsonView(ProductViews.DisplayProduct.class)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDto>> getAllProducts() {
 
@@ -71,8 +73,9 @@ public class ProductController {
     }
 
     @JsonView(ProductViews.DisplayProduct.class)
-    @PostMapping(value = "/{productId}/updatePrice/{price}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductDto> updatePrice(@PathVariable(PRODUCT_ID) UUID productId, @PathVariable(PRICE) String price) {
+    @PostMapping(value = "/{productId}/updatePrice",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<ProductDto> updatePrice(@PathVariable(PRODUCT_ID) UUID productId, @RequestParam(PRICE) String price) {
 
         var product = productService.updatePrice(productId, price);
 
