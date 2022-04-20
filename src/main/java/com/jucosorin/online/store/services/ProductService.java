@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Product> findProduct(UUID productId) {
+        return productRepository.findById(productId);
+    }
+
+    @Transactional
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }

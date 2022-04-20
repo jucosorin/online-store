@@ -25,7 +25,7 @@ public class Product extends NamedEntity {
     @Column(precision = 9, scale = 4, nullable = false)
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "product_type_id", nullable = false)
     private ProductType productType;
 

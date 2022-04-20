@@ -15,7 +15,11 @@ public interface ProductMapper {
     @Mapping(target = "stock", source = "initialStock")
     Product toProduct(ProductDto dto);
 
+    ProductDto toProductDto(Product product);
+
     ProductType toProductType(ProductTypeDto dto);
+
+    ProductTypeDto toProductTypeDto(ProductType productType);
 
     List<ProductDto> toProductDtoList(List<Product> products);
 
