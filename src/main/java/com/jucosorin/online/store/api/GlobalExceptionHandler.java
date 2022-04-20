@@ -2,6 +2,7 @@ package com.jucosorin.online.store.api;
 
 import com.jucosorin.online.store.exception.ErrorCode;
 import com.jucosorin.online.store.exception.ProductNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
@@ -26,6 +28,8 @@ public class GlobalExceptionHandler {
     }
 
     protected ResponseEntity<ExceptionInfo> handleProductNotFoundException(ProductNotFoundException ex, HttpHeaders headers, HttpStatus status, HttpServletRequest request) {
+        log.error(ex.getLocalizedMessage(), ex);
+
         return new ResponseEntity<>(ExceptionInfo.builder()
                 .path(request.getRequestURI())
                 .errorCode(ex.getErrorCode())
@@ -34,6 +38,7 @@ public class GlobalExceptionHandler {
     }
 
     protected ResponseEntity<ExceptionInfo> handleExceptionInternal(Exception ex, HttpHeaders headers, HttpStatus status, HttpServletRequest request) {
+        log.error(ex.getLocalizedMessage(), ex);
 
         return new ResponseEntity<>(ExceptionInfo.builder()
                 .path(request.getRequestURI())

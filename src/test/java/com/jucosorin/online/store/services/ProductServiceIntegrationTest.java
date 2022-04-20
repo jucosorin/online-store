@@ -1,6 +1,5 @@
-package com.jucosorin.online.store;
+package com.jucosorin.online.store.services;
 
-import com.jucosorin.online.store.services.ProductService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

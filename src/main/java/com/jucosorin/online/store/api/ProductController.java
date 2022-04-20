@@ -32,6 +32,8 @@ import static com.jucosorin.online.store.exception.ProductNotFoundException.PROD
 public class ProductController {
 
     public static final String PRODUCT_ID = "productId";
+    public static final String PRICE = "price";
+
     private final ProductService productService;
     private final ProductMapper productMapper;
 
@@ -46,6 +48,7 @@ public class ProductController {
                 .path("/{id}")
                 .buildAndExpand(product.getId())
                 .toUri();
+        log.info("Add new product with id {}", product.getId());
 
         return ResponseEntity.created(location).build();
     }
@@ -60,10 +63,21 @@ public class ProductController {
     }
 
     @JsonView(ProductViews.DisplayProduct.class)
-    @GetMapping(value = "/{productId}")
+    @GetMapping(value = "/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductDto> getProduct(@PathVariable(PRODUCT_ID) UUID productId) {
         final var product = productService.findProduct(productId)
                 .orElseThrow(() -> ProductNotFoundException.with(PRODUCT_NOT_FOUND_MESSAGE, PRODUCT_NOT_FOUND, productId));
+        return ResponseEntity.ok(productMapper.toProductDto(product));
+    }
+
+    @JsonView(ProductViews.DisplayProduct.class)
+    @PostMapping(value = "/{productId}/updatePrice/{price}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductDto> updatePrice(@PathVariable(PRODUCT_ID) UUID productId, @PathVariable(PRICE) String price) {
+
+        var product = productService.updatePrice(productId, price);
+
+        log.info("Update price to {} for product with id {}", price, productId);
+
         return ResponseEntity.ok(productMapper.toProductDto(product));
     }
 }
